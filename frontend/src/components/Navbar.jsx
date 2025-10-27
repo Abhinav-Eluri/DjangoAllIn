@@ -60,10 +60,10 @@ const Navbar = () => {
                       size="sm"
                       className="flex items-center space-x-2 text-responsive-sm"
                     >
+                      <User className="h-4 w-4" />
                       <span className="hidden sm:inline">
                         {user.first_name || user.email}
                       </span>
-                      <User className="h-4 w-4" />
                       <ChevronDown className="h-3 w-3" />
                     </Button>
                   </DropdownMenuTrigger>
