@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_q',
     'silk',
     'storages',
+    "generic_notifications",
 
     # Allauth apps
     'allauth',
@@ -63,6 +64,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'auth.apps.AccountsConfig',
+    'app_notifications',
 ]
 
 MIDDLEWARE = [
@@ -178,8 +180,8 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle',   # for authenticated users
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '10/minute',  # 10 requests per minute for anonymous users
-        'user': '100/hour',   # 100 requests per hour for logged-in users
+        'anon': '100/minute',  # 10 requests per minute for anonymous users
+        'user': '1000/hour',   # 100 requests per hour for logged-in users
     }
 }
 

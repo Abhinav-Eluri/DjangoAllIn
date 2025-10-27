@@ -2,6 +2,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
 import { useAuth } from '../contexts/AuthContext';
 import ThemeToggle from './ThemeToggle';
+import NotificationBell from './notifications/NotificationBell';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
+import { User, Settings, LogOut, ChevronDown } from 'lucide-react';
 
 const Navbar = () => {
   const { user, loading, isLoggedIn, logout } = useAuth();
@@ -41,6 +51,7 @@ const Navbar = () => {
 
           <div className="flex items-center space-x-2 sm:space-x-4">
             <ThemeToggle />
+            {user && <NotificationBell />}
             
             {loading ? (
               <div className="animate-pulse">
@@ -48,17 +59,45 @@ const Navbar = () => {
               </div>
             ) : user ? (
               <div className="flex items-center space-x-2 sm:space-x-4">
-                <span className="text-responsive-sm text-muted-foreground hidden sm:inline">
-                  Welcome, {user.first_name || user.email}
-                </span>
-                <Button
-                  onClick={handleLogout}
-                  variant="outline"
-                  size="sm"
-                  className="btn-responsive"
-                >
-                  Logout
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="flex items-center space-x-2 text-responsive-sm"
+                    >
+                      <span className="hidden sm:inline">
+                        {user.first_name || user.email}
+                      </span>
+                      <User className="h-4 w-4" />
+                      <ChevronDown className="h-3 w-3" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link to="/dashboard" className="flex items-center">
+                        <User className="mr-2 h-4 w-4" />
+                        <span>My Profile</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/password-change" className="flex items-center">
+                        <Settings className="mr-2 h-4 w-4" />
+                        <span>Change Password</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={handleLogout}
+                      className="flex items-center text-destructive focus:text-destructive"
+                    >
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Logout</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             ) : (
               <div className="flex items-center space-x-2">

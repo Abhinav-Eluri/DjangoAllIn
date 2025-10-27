@@ -72,13 +72,13 @@ api.interceptors.response.use(
         } catch (refreshError) {
           // Refresh failed, redirect to login
           tokenManager.removeTokens();
-          window.location.href = '/login';
+          window.location.href = '/auth/login';
           return Promise.reject(refreshError);
         }
       } else {
         // No valid refresh token, redirect to login
         tokenManager.removeTokens();
-        window.location.href = '/login';
+        window.location.href = '/auth/login';
       }
     }
 

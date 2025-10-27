@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { authAPI, isAuthenticated, tokenManager } from '../api';
 
 const AuthContext = createContext();
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const checkAuth = async () => {
+  const checkAuth = useCallback(async () => {
     if (isAuthenticated()) {
       try {
         const response = await authAPI.getUser();
@@ -33,11 +33,11 @@ export const AuthProvider = ({ children }) => {
       setIsLoggedIn(false);
     }
     setLoading(false);
-  };
+  }, []);
 
   useEffect(() => {
     checkAuth();
-  }, []);
+  }, [checkAuth]);
 
   const login = async (credentials) => {
     try {

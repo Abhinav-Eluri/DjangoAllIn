@@ -31,6 +31,9 @@ urlpatterns = [
     path('api/auth/', include('dj_rest_auth.urls')),
     path('api/auth/', include('auth.urls')),  # Custom auth endpoints
 
+    # NOTIFICATIONS API
+    path('', include('app_notifications.urls')),
+
     # SILK
     path('silk/', include('silk.urls', namespace='silk')),
     
