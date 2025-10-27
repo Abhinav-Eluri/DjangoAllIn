@@ -39,12 +39,6 @@ const Navbar = () => {
                 >
                   Dashboard
                 </Link>
-                <Link
-                  to="/password-change"
-                  className="text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-responsive-sm font-medium dark-transition"
-                >
-                  Change Password
-                </Link>
               </div>
             )}
           </div>
