@@ -1,0 +1,5 @@
+.venv
+.idea/*
+backend/auth/__pycache__/*
+backend/backend/__pycache__/*
+backend/.env
